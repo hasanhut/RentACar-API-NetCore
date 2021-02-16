@@ -11,8 +11,10 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             CarManager carManager = new CarManager(new EfCarDal());
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
 
-            carManager.Add(new Car
+            /*carManager.Add(new Car
             {
                 Id=6,
                 BrandId = 4,
@@ -21,12 +23,22 @@ namespace ConsoleUI
                 ModelYear = 2021,
                 Description = "Volkswagen Polo"
 
-            });
+            });*/
 
-            foreach (var car in carManager.GetAll())
+            foreach (var car in carManager.getCarDetails())
             {
-                Console.WriteLine(car.Description);
+                Console.WriteLine(car.CarName + " - " + car.BrandName + " - " + car.ColorName + " - " + car.DailyPrice);
             }
+
+            /*foreach (var brand in brandManager.GetAll())
+            {
+                Console.WriteLine(brand.BrandName);
+            }
+
+            foreach (var color in colorManager.GetAll())
+            {
+                Console.WriteLine(color.ColorName);
+            }*/
         }
     }
 }

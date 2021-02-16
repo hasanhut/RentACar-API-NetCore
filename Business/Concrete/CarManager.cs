@@ -4,7 +4,7 @@ using System.Text;
 using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using Console = System.Console;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -30,6 +30,11 @@ namespace Business.Concrete
         public List<Car> getCarsByColorId(int id)
         {
             return _carDal.GetAll(c => c.ColorId == id);
+        }
+
+        public List<CarDetailDto> getCarDetails()
+        {
+            return _carDal.getCarDetails();
         }
 
         public void Add(Car car)
