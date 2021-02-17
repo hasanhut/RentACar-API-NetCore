@@ -25,20 +25,21 @@ namespace ConsoleUI
 
             });*/
 
-            foreach (var car in carManager.getCarDetails())
+            foreach (var car in carManager.getCarDetails().Data)
             {
                 Console.WriteLine(car.CarName + " - " + car.BrandName + " - " + car.ColorName + " - " + car.DailyPrice);
             }
 
-            /*foreach (var brand in brandManager.GetAll())
+            foreach (var brand in brandManager.GetAll().Data)
             {
                 Console.WriteLine(brand.BrandName);
             }
 
-            foreach (var color in colorManager.GetAll())
+            foreach (var color in colorManager.GetAll().Data)
             {
                 Console.WriteLine(color.ColorName);
-            }*/
+            }
+            
         }
     }
 }

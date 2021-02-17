@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -17,48 +20,50 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(),  Messages.CarGetAll);
         }
 
-        public List<Car> getCarsByBrandId(int id)
+        public IDataResult<List<Car>> getCarsByBrandId(int id)
         {
-            return _carDal.GetAll(c => c.BrandId == id);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
         }
 
-        public List<Car> getCarsByColorId(int id)
+        public IDataResult<List<Car>> getCarsByColorId(int id)
         {
-            return _carDal.GetAll(c => c.ColorId == id);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
         }
 
-        public List<CarDetailDto> getCarDetails()
+        public IDataResult<List<CarDetailDto>> getCarDetails()
         {
-            return _carDal.getCarDetails();
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.getCarDetails());
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             if (car.DailyPrice > 0 && car.Description.Length > 2)
             {
-                Console.WriteLine("Car Added");
                 _carDal.Add(car);
+                return new SuccessResult(Messages.CarAdd);
             }
             else
             {
-                Console.WriteLine("Car could not be added !!!!");
+                return new ErrorResult(Messages.InvalidCarAdd);
             }
             
         }
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
-            throw new NotImplementedException();
+            _carDal.Update(car);
+            return new SuccessResult(Messages.CarUpdate);
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
-            throw new NotImplementedException();
+            _carDal.Delete(car);
+            return new SuccessResult(Messages.CarDelete);
         }
     }
 }
