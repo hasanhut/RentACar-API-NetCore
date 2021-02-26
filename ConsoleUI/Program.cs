@@ -38,7 +38,7 @@ namespace ConsoleUI
             {
                 Id = 1,
                 CarId = 1,
-                CustomerId = 10,
+                CustomerId = 1,
                 RentTime = DateTime.Now,
                 ReturnDate = null
             });
