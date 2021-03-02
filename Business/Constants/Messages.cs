@@ -38,5 +38,7 @@ namespace Business.Constants
         public static string CustomerAdd = "New Customer Added !!";
         public static string CustomerUpdate = "Customer Updated !!";
         public static string CustomerDelete = "Customer Deleted !!";
+        public static string CarImageLimitExceeded = "More than 5 images cannot be added";
+        public static string AddedCarImage = "New Car Image Added !!";
     }
 }
