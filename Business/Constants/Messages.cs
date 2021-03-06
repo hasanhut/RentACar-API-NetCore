@@ -40,5 +40,13 @@ namespace Business.Constants
         public static string CustomerDelete = "Customer Deleted !!";
         public static string CarImageLimitExceeded = "More than 5 images cannot be added";
         public static string AddedCarImage = "New Car Image Added !!";
+
+        public static string UserNotFound = "User Not Found";
+        public static string PasswordError = "Password Not Valid";
+        public static string SuccessfulLogin = "Login Successful";
+        public static string UserAlreadyExists = "User Already Exists";
+        public static string UserRegistered = "User Registered";
+        public static string AccessTokenCreated = "Access Token Created";
+        public static string AuthorizationDenied = "Authorization Denied";
     }
 }
