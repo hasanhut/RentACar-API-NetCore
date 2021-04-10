@@ -36,7 +36,7 @@ namespace ConsoleUI
         {
             rentalManager.Add(new Rental
             {
-                Id = 1,
+                RentalId = 1,
                 CarId = 1,
                 CustomerId = 1,
                 RentTime = DateTime.Now,
@@ -72,7 +72,7 @@ namespace ConsoleUI
 
         private static void CarDetails(CarManager carManager)
         {
-            foreach (var car in carManager.getCarDetails().Data)
+            foreach (var car in carManager.GetCarDetails().Data)
             {
                 Console.WriteLine(car.CarName + " - " + car.BrandName + " - " + car.ColorName + " - " + car.DailyPrice);
             }
@@ -82,7 +82,7 @@ namespace ConsoleUI
         {
             carManager.Add(new Car
             {
-                Id = 6,
+                CarId = 6,
                 BrandId = 4,
                 ColorId = 2,
                 DailyPrice = 75,

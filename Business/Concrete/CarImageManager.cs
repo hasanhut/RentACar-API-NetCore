@@ -24,7 +24,7 @@ namespace Business.Concrete
         {
             _carImageDal = carImageDal;
         }
-        [ValidationAspect(typeof(CarImageValidator))]
+        //[ValidationAspect(typeof(CarImageValidator))]
         public IResult Add(IFormFile file, CarImage carImage)
         {
             var result = BusinessRules.Run(CheckImageLimitExceeded(carImage.CarId));
@@ -37,7 +37,7 @@ namespace Business.Concrete
             _carImageDal.Add(carImage);
             return new SuccessResult(Messages.AddedCarImage);
         }
-        [ValidationAspect(typeof(CarImageValidator))]
+        //[ValidationAspect(typeof(CarImageValidator))]
         public IResult Update(IFormFile file, CarImage carImage)
         {
             IResult result = BusinessRules.Run(CheckImageLimitExceeded(carImage.CarId));
@@ -45,24 +45,32 @@ namespace Business.Concrete
             {
                 return result;
             }
-            carImage.ImagePath = FileHelper.Update(_carImageDal.Get(p => p.Id == carImage.Id).ImagePath, file);
+            carImage.ImagePath = FileHelper.Update(_carImageDal.Get(p => p.CarImageId == carImage.CarImageId).ImagePath, file);
             carImage.CarImageDate = DateTime.Now;
             _carImageDal.Update(carImage);
             return new SuccessResult();
         }
-        [ValidationAspect(typeof(CarImageValidator))]
+
+        //[ValidationAspect(typeof(CarImageValidator))]
         public IResult Delete(CarImage carImage)
         {
             FileHelper.Delete(carImage.ImagePath);
             _carImageDal.Delete(carImage);
             return new SuccessResult();
         }
-        [ValidationAspect(typeof(CarImageValidator))]
+
+        //[ValidationAspect(typeof(CarImageValidator))]
         public IDataResult<CarImage> GetById(int id)
         {
-            return new SuccessDataResult<CarImage>(_carImageDal.Get(I => I.Id == id));
+            return new SuccessDataResult<CarImage>(_carImageDal.Get(I => I.CarImageId == id));
         }
-        [ValidationAspect(typeof(CarImageValidator))]
+
+        public IDataResult<List<CarImage>> GetByCarId(int CarId)
+        {
+            return new SuccessDataResult<List<CarImage>>(CheckIfDefaultImages(CarId));
+        }
+
+        //[ValidationAspect(typeof(CarImageValidator))]
         public IDataResult<List<CarImage>> GetAll(Expression<Func<CarImage, bool>> filter = null)
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
@@ -79,5 +87,17 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+        private List<CarImage> CheckIfDefaultImages(int Id)
+        {
+            var DefaultPath = AppDomain.CurrentDomain.BaseDirectory + @"C:\Users\hasan\Desktop\wallpapers\logo.jpg";
+
+
+            var result = _carImageDal.GetAll(p => p.CarId == Id).Any();
+            if (!result)
+            {
+                return new List<CarImage> { new CarImage { CarId = Id, ImagePath = DefaultPath, CarImageDate = DateTime.Now } };
+            }
+            return _carImageDal.GetAll(p => p.CarId == Id);
+        }
     }
 }
