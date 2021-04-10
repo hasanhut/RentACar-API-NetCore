@@ -89,15 +89,16 @@ namespace Business.Concrete
 
         private List<CarImage> CheckIfDefaultImages(int Id)
         {
-            var DefaultPath = AppDomain.CurrentDomain.BaseDirectory + @"C:\Users\hasan\Desktop\wallpapers\logo.jpg";
-
-
-            var result = _carImageDal.GetAll(p => p.CarId == Id).Any();
-            if (!result)
+            var result = _carImageDal.GetAll(p => p.CarId == Id);
+            if (result.Count > 0)
             {
-                return new List<CarImage> { new CarImage { CarId = Id, ImagePath = DefaultPath, CarImageDate = DateTime.Now } };
+                return _carImageDal.GetAll(p => p.CarId == Id);
+                //List<CarImage> images = new List<CarImage>();
+                //images.Add(new CarImage() { CarId = Id, ImagePath = "/Images/logo.jpg", CarImageDate = DateTime.Now });
+                
             }
-            return _carImageDal.GetAll(p => p.CarId == Id);
+            return new List<CarImage> { new CarImage { CarId = Id, ImagePath = "/Images/logo.jpg", CarImageDate = DateTime.Now } };
         }
+       
     }
 }
