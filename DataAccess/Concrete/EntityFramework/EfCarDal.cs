@@ -21,16 +21,18 @@ namespace DataAccess.Concrete.EntityFramework
                     from car in sqlContext.Cars
                     join color in sqlContext.Colors on car.ColorId equals color.ColorId
                     join brand in sqlContext.Brands on car.BrandId equals brand.BrandId
-                    //join image in sqlContext.CarImages on car.CarId equals image.CarId
+                    join image in sqlContext.CarImages on car.CarId equals image.CarId
                     select new CarDetailDto
                     {
                         CarId = car.CarId,
+                        BrandId = brand.BrandId,
+                        ColorId = color.ColorId,
                         CarName = car.Description,
                         ColorName = color.ColorName, 
                         BrandName = brand.BrandName,
                         DailyPrice = car.DailyPrice,
                         ModelYear = car.ModelYear,
-                        //ImagePath = image.ImagePath
+                        ImagePath = image.ImagePath
                     };
                 return filter == null ? result.ToList() : result.Where(filter).ToList();
             }
