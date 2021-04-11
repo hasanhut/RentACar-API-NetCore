@@ -1,4 +1,4 @@
 # ReCapProject
 ReCapProject
 
-Car Rental Project with Dev Architecture https://www.devarchitecture.net/
+Car Rental Project BackEnd with .Net Core
